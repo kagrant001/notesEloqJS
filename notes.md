@@ -119,6 +119,13 @@ a.concat(b);
 // → a = [1,3], b = [2,4]
 // → a.concat(b) = [1,3,2,4]
 ```
+*slice*: takes start and end indices and returns an array of only the elements between them. if there is no end index, then it will return from start to the end of the whole array ex.
+```js
+console.log([0, 1, 2, 3, 4].slice(2, 4));
+// → [2, 3]
+console.log([0, 1, 2, 3, 4].slice(2));
+// → [2, 3, 4]
+```
 *includes*: checks whether given value exists in an array ex.
 ```js
 function doSomething(event) {
@@ -144,7 +151,17 @@ for (let entry of JOURNAL) {
   console.log(`${entry.events.length} events.`);
 }
 ```
+*for each - arrays*: for each element in an array do something
+```js
+let array1 = [1,2,3];
+array1.forEach(element => console.log(element));
+// → 1
+// → 2
+// → 3
+```
+
 *indexOf*: searches array and returns value passed.
+
 *lastIndexOf*: searched array from back to front and returns value passed.
 
 note: both indexOf and lastIndexOf take optional second argument for starting point.
@@ -154,6 +171,112 @@ console.log([1, 2, 3, 2, 1].indexOf(2));
 console.log([1, 2, 3, 2, 1].lastIndexOf(2));
 // → 3
 ```
+- ## Rest Parameters
+d: sometimes it can be useful to have a function take infinite parameters  
+note: putting ... before the last variable allows this ex.  
+```js
+function max (...numbers) { //do something};
+console.log(max(1,3,6,2,9));
+// (assuming function max returned the max) → 9
+```
+note: this can be applied to arrays too ex.
+```js
+let numbers = [5, 1, 7];
+console.log(max(...numbers));
+// → 7
+```
+or
+```js
+let words = ["never", "fully"];
+console.log(["will", ...words, "understand"]);
+// → ["will", "never", "fully", "understand"]
+```
+
+- ## JSON
+d: JavaScript Object Notation. This is a format for declaring properties in an object ex.
+```js
+{
+  "squirrel": false,
+  "events": ["work", "touched tree", "pizza", "running"]
+}
+```
+*JSON.stringify*: converts data into JSON encoded string ex.
+```js
+let string = JSON.stringify({squirrel: false, events: ["weekend"]});
+console.log(string);
+// → {"squirrel":false,"events":["weekend"]}
+```
+*JSON.parse*: converts data from JSON encoded string into the value it encodes ex.
+```js
+console.log(JSON.parse(string).events);
+// → ["weekend"]
+```
+
+# Chapter 4 Exercises:
+
+- The sum of a range
+```js
+function range(start, end) {
+  let nums = [];
+  if (start < end) {
+  	for (let i=start; i <= end; i++) {
+      nums.push(i);
+    }
+    return nums;
+  } else if (start > end) {
+    for (let i=start; i >= end; i--) {
+      nums.push(i);
+    }
+    return nums;
+  }  
+}
+
+function sum(numbers) {
+  let totalSum = 0;
+  numbers.forEach(element => totalSum += element);
+  return totalSum;
+}
+
+console.log(range(1, 10));
+// → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+console.log(range(5, 2, -1));
+// → [5, 4, 3, 2]
+console.log(sum(range(1, 10)));
+// → 55
+```
+
+- Reversing an array
+```js
+function reverseArray(array) {
+  let newArray = [];
+  let temp = array.length - 1;
+  for (let i=0; i<array.length; i++) {
+    newArray[i] = array[temp];
+    temp--;
+  }
+  return newArray;
+}
+
+function reverseArrayInPlace(array) {
+  let tempHolder;
+  let backwardsCounter = array.length-1;
+  for (let i=0; i<array.length/2; i++) {
+    tempHolder = array[i];
+    array[i] = array[backwardsCounter];
+    array[backwardsCounter] = tempHolder;
+    backwardsCounter--;
+  }
+  return array;
+}
+
+console.log(reverseArray(["A", "B", "C"]));
+// → ["C", "B", "A"];
+let arrayValue = [1, 2, 3, 4, 5];
+reverseArrayInPlace(arrayValue);
+console.log(arrayValue);
+// → [5, 4, 3, 2, 1]
+```
+
 
 
 
