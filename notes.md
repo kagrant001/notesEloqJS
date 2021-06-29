@@ -7,15 +7,15 @@ eloquent js: chapters 1-6, 10, 11, 15, 20;
 d: another way to write functions, coming back to this in chapter 5
 syntax:
 ```js
-let power = (x, y) => { //do something };
+let power = (x, y) => { /*do something*/ };
 ```
 or
 ```js
-let power = (x) => { //do something };
+let power = (x) => { /*do something*/ };
 ```
 or
 ```js
-let power = x => //do something;
+let power = x => /*do something*/;
 ```
 
 - ## Optional Arguments
@@ -277,11 +277,117 @@ console.log(arrayValue);
 // → [5, 4, 3, 2, 1]
 ```
 
+# Chapter 5: *Higher-Order Functions*
 
+- ## Higher-Order Functions
+d: functions that operate on other functions i.e. taking in a function as a parameter or returning a function call
 
+note: higher-order functions allow abstraction (using calls to simplify lines of code) of actions.
 
+example 1: functions that create new functions (using arrow function notation)
+```js
+function greaterThan(n) {
+  return m => m > n;
+}
+let greaterThan10 = greaterThan(10);
+console.log(greaterThan10(11));
+// → true
+```
+example 2: functions that provide new control flow (calling other methods such as then();)
+```js
+function unless(test, then) {
+  if (!test) then();
+}
 
+repeat(3, n => {
+  unless(n % 2 == 1, () => {
+    console.log(n, "is even");
+  });
+});
+// → 0 is even
+// → 2 is even
+```
 
+note: the array method forEach from chapter 4, works as a higher order function
 
+example 3ish: when later calling the function *filter*, for this case, the test parameter will need to be a function (which is possible in JS). This adds reusablilty by allowing other calls use their own test function → abstraction ;)
+```js
+function filter(array, test) {
+//do something
+}
+```
 
+- ## More Array Methods
+note: all of these methods are standard methods that can be called like array.filter() or array.map() with respective parameters
 
+*filter*: this method will filter out all elements in an array that doesnt pass the test function.  
+```js
+//native code
+let passed = [];
+  for (let element of array) {
+    if (test(element)) {
+      passed.push(element);
+    }
+  }
+  return passed;
+}
+
+//normal use example →
+
+//filter through array testing if the element is equal to "hello"
+let filter1 = array1.filter(x => x == "hello");
+```
+*map*: this method will transform an array by applying the function parameter to each element in a new array and returning it.  
+```js
+//native code
+function map(array, transform) {
+  let mapped = [];
+  for (let element of array) {
+    mapped.push(transform(element));
+  }
+  return mapped;
+}
+//normal use example →
+
+//map through the array by changing each element to the current element * 2
+let map1 = array1.map(x => x * 2);
+```
+*reduce*: this method builds a value by combining an element from the array with the current value, returning the combined value from the entire array.  
+```js
+//native code
+function reduce(array, combine, start) {
+  let current = start;
+  for (let element of array) {
+    current = combine(current, element);
+  }
+  return current;
+}
+
+//normal use example → 
+
+//add each element in the array with the current value
+const array1 = [1, 2, 3, 4];
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+// 1 + 2 + 3 + 4
+console.log(array1.reduce(reducer));
+// expected output: 10
+```
+note: "You can usually afford the readable approach, but if you’re processing huge arrays, and doing so many times, the less abstract style might be worth the extra speed."
+
+# Chapter 5 Exercises: 
+- Your Own Loop
+```js
+//test, update, and body are function parameters
+function loop(value, test, update, body) {
+  while(test(value)) {
+    body(value);
+    value = update(value);
+  }
+}
+
+loop(3, n => n > 0, n => n - 1, console.log);
+// → 3
+// → 2
+// → 1
+```
