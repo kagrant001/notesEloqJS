@@ -119,7 +119,8 @@ a.concat(b);
 // → a = [1,3], b = [2,4]
 // → a.concat(b) = [1,3,2,4]
 ```
-***slice***: takes start and end indices and returns an array of only the elements between them. if there is no end index, then it will return from start to the end of the whole array ex.
+***slice***: takes start and end indices and returns an array of only the elements between them. if there is  
+no end index, then it will return from start to the end of the whole array ex.
 ```js
 console.log([0, 1, 2, 3, 4].slice(2, 4));
 // → [2, 3]
@@ -156,9 +157,11 @@ function doSomething(event) {
 }
 // → index = 1 if doSomething(1); is called because our entry object's event property is included
 ```
-note: first code box is a classic way of iterating over each element in a for loop, second code box is a JavaScript specific simplier way to write this type of for loop     
+note: first code box is a classic way of iterating over each element in a for loop, second code box is a   
+JavaScript specific simplier way to write this type of for loop     
  
-***of***: in a loop, it will loop over all elements in the value given after. works in arrays, strings, and some other data structures, resumed in ***ch 6***. ex.
+***of***: in a loop, it will loop over all elements in the value given after. works in arrays, strings,   
+and some other data structures, resumed in ***ch 6***. ex.
 ```js
 //1 code box
 for (let i = 0; i < JOURNAL.length; i++) {
@@ -302,8 +305,10 @@ console.log(arrayValue);
 ```js
 function arrayToList(arr) {
   let list = null;
-  //start from the back because the first thing put in the list is the 
-  //last value out hence start at the last value
+  /*
+  start from the back because the first thing put in the list is the 
+  last value out hence start at the last value
+  */
   for (let i=arr.length-1; i>=0; i--) {
     list = {
       value: arr[i],
@@ -317,15 +322,19 @@ function listToArray(list) {
   let arr = [];
   //using tempList since its better to not iterate through the original one
   let tempList = list;
-  //runs until reaches end of list since the end of list is dictated
-  //by the value == null
+  /*
+  runs until reaches end of list since the end of list is dictated
+  by the value == null
+  */
   while(tempList.rest != null) {
     arr.push(tempList.value);
     //how to iterate through a list
     tempList = tempList.rest;
   }
-  //last value is being left off since in the while loop the rest value
-  //couldnt continue
+  /*
+  last value is being left off since in the while loop the rest value
+  couldnt continue
+  */
   arr.push(tempList.value);
   return arr;
 }
@@ -342,7 +351,11 @@ function prepend(element, list) {
 
 function nth(list, number) {
   let counter = 0;
-  //every iteration, node points to current list properties. then at the end of iteration, node moves on to the next set of list properties. when node is null, there are no values to access so the loop is done.
+  /*
+  every iteration, node points to current list properties. then at the end of iteration, 
+  node moves on to the next set of list properties. when node is null, there are no values to access 
+  so the loop is done.
+  */
   for (let node = list; node; node = node.rest) {
     if (counter == number) {
 	  return node.value;
@@ -397,7 +410,8 @@ repeat(3, n => {
 
 note: the array method forEach from ***ch 4***, works as a higher order function
 
-example 3ish: when later calling the function ***filter***, for this case, the test parameter will need to be a function (which is possible in JS). This adds reusablilty by allowing other calls use their own test function → abstraction ;)
+example 3ish: when later calling the function ***filter***, for this case, the test parameter will need to be a function (which is possible in JS).    
+This adds reusablilty by allowing other calls use their own test function → abstraction ;)
 ```js
 function filter(array, test) {
 //do something
@@ -405,7 +419,8 @@ function filter(array, test) {
 ```
 
 - ## More Array Methods
-note: all of these methods are standard methods that can be called like array.filter() or array.map() with respective parameters
+note: all of these methods are standard methods that can be called like array.filter() or   
+array.map() with respective parameters
 
 ***filter***: this method will filter out all elements in an array that doesnt pass the test function.  
 ```js
@@ -424,7 +439,8 @@ let passed = [];
 //filter through array testing if the element is equal to "hello"
 let filter1 = array1.filter(x => x == "hello");
 ```
-***map***: this method will transform an array by applying the function parameter to each element in a new array and returning it.  
+***map***: this method will transform an array by applying the function parameter to each element in a new   
+array and returning it.  
 ```js
 //native code
 function map(array, transform) {
@@ -439,7 +455,8 @@ function map(array, transform) {
 //map through the array by changing each element to the current element times 2
 let map1 = array1.map(x => x * 2);
 ```
-***reduce***: this method builds a value by combining an element from the array with the current value, returning the combined value from the entire array.  
+***reduce***: this method builds a value by combining an element from the array with the current value,   
+returning the combined value from the entire array.  
 ```js
 //native code
 function reduce(array, combine, start) {
@@ -460,7 +477,8 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
 console.log(array1.reduce(reducer));
 // expected output: 10
 ```
-note: "You can usually afford the readable approach, but if you’re processing huge arrays, and doing so many times, the less abstract style might be worth the extra speed."
+note: "You can usually afford the readable approach, but if you’re processing huge arrays, and doing so   
+many times, the less abstract style might be worth the extra speed."
 
 # Chapter 5 Exercises: 
 - ## Your Own Loop
@@ -481,7 +499,9 @@ loop(3, n => n > 0, n => n - 1, console.log);
 # Chapter 6: *The Secret Life of Objects*
 
 - ## Prototypes
-d: the object, array, or function that acts as a fall back source of an object, array, or function when it is requested for a property it does not have. Prototypes can use other objects, arrays, or functions as their prototype, but will always have an original prototype which is something like Object.prototype(Object1).
+d: the object, array, or function that acts as a fall back source of an object, array, or function when it is   
+requested for a property it does not have. Prototypes can use other objects, arrays, or functions as their  
+prototype, but will always have an original prototype which is something like Object.prototype(Object1).
 
 ***Object.getPrototypeOf()***: returns the prototype of an object.
 ```js
@@ -500,11 +520,14 @@ killerRabbit.type = "killer";
 killerRabbit.speak("SKREEEE!");
 // → The killer rabbit says 'SKREEEE!'
 ```
-note: assume protoRabbit has multiple properties to show the complexities that make up a rabbit, the killerRabbit class object is inheriting all of the features (saving time and code to remake all of them) and then changing some of the features to make it more fit.
+note: assume protoRabbit has multiple properties to show the complexities that make up a rabbit, the   
+killerRabbit class object is inheriting all of the features (saving time and code to remake all of them)   
+and then changing some of the features to make it more fit.
 
 - ## Classes
 
-note: JS does not really have formal class structures like other languages such as java, prototypes are useful for inheritence since there is no structure for classes.
+note: JS does not really have formal class structures like other languages such as java, prototypes are useful   
+for inheritence since there is no structure for classes.
 
 ***constructor functions in JS*:**
 ```js
@@ -514,7 +537,9 @@ function makeRabbit(type) {
   return rabbit;
 }
 ```
-note: when makeing a new rabbit, if using the ***new*** keyword, the object with the right prototype will be created, will be bounded to the ***this*** in the constructor, and then will be returned at the end. this is simply another way of making a constructor.
+note: when makeing a new rabbit, if using the ***new*** keyword, the object with the right prototype will be   
+created, will be bounded to the ***this*** in the constructor, and then will be returned at the end.   
+this is simply another way of making a constructor.
 ```js
 //constructor
 function Rabbit(type) {
@@ -541,10 +566,12 @@ class Rabbit {
 let killerRabbit = new Rabbit("killer");
 let blackRabbit = new Rabbit("black");
 ```
-note: currently, class declarations only allow methods (properties that hold functions). this can be annoying when you want to store non-function data since u cant ;)
+note: currently, class declarations only allow methods (properties that hold functions).   
+this can be annoying when you want to store non-function data since u cant ;)
 
 - ## Maps
-d: (Exclaimer) this is not the same this as array.map(). this is a programming construct. a map is a data structure that associates its values (keys) with other values.
+d: (Exclaimer) this is not the same this as array.map(). this is a programming construct. a map is a data   
+structure that associates its values (keys) with other values.
 
 ```js
 //an example of a simple map in an object
@@ -554,23 +581,27 @@ let ages = {
   Julia: 62
 };
 ```
-note: objects are not the best place to use maps since objects are derived from Object.prototype meaning properties like toString are always present in the map ex.
+note: objects are not the best place to use maps since objects are derived from Object.prototype meaning   
+properties like toString are always present in the map ex.
 ```js
 //continued from code above
 console.log("Is toString's age known?", "toString" in ages);
 // → Is toString's age known? true
 ```
-note: Object property names need to be String and when you cannot convert keys to type to String (aka objects), you cannot use objects as maps. so JS made a class for maps called Map(); which allows any type as keys ex.
+note: Object property names need to be String and when you cannot convert keys to type to String (aka objects),   
+you cannot use objects as maps. so JS made a class for maps called Map(); which allows any type as keys ex.
 ```js 
 let ages = new Map();
 ages.set("Boris", 39);
 ages.set("Liang", 22);
 ages.set("Júlia", 62);
 ```
-note: the methods ***set***, ***get***, and ***has*** are all apart of the Map class and work as a setter, getter, and contains function.
+note: the methods ***set***, ***get***, and ***has*** are all apart of the Map class and work as a setter,   
+getter, and contains function.
 
 - ## The Iterator Interface
-d: iterators just iterate a given thing. in JS its most common to iterate arrays but you can also iterate objects. in order to iterate objects, it must have a property with a ***Symbol.iterator*** key.
+d: iterators just iterate a given thing. in JS its most common to iterate arrays but you can also   
+iterate objects.in order to iterate objects, it must have a property with a ***Symbol.iterator*** key.
 ```js
 //example of simple iterator
 let okIterator = "OK"[Symbol.iterator]();
@@ -581,7 +612,9 @@ console.log(okIterator.next());
 console.log(okIterator.next());
 // → {value: undefined, done: true}
 ```
-note: iterators have two properties, ***value*** and ***done***. ***value*** is what is being iterated through and the value that is supposed to be returned. ***done*** is a boolean representing if we have iterated through whatever we are iterating through completely or not.
+note: iterators have two properties, ***value*** and ***done***. ***value*** is what is being iterated   
+through and the value that is supposed to be returned. ***done*** is a boolean representing if we have   
+iterated through whatever we are iterating through completely or not.
 ```js
 //full example of an iterator
 
@@ -635,7 +668,10 @@ class MatrixIterator {
   }
 }
 
-//because we are adding Symbol.iterator to the Matrix prototype, we can now loop over the Matrix class with for/of
+/*
+because we are adding Symbol.iterator to the Matrix prototype, we can now loop over the Matrix   
+class with for/of
+*/
 Matrix.prototype[Symbol.iterator] = function() {
   return new MatrixIterator(this);
 };
@@ -652,7 +688,8 @@ for (let {x, y, value} of matrix) {
 ```
 
 - ## Getters, Setters, and Statics
-note: getters and setters have actual syntax in JS similar to how constructor does too. (they still work the same as normal getters and setters though so dont worry).
+note: getters and setters have actual syntax in JS similar to how constructor does too. (they still work the same   
+as normal getters and setters though so dont worry).
 ```js
 class Temperature {
   constructor(celsius) {
@@ -666,23 +703,31 @@ class Temperature {
   }
 }
 ```
-note: when ***static*** is put in front of a method name, it means that the method is going to be stored inside of the constructor of the class. 
+note: when ***static*** is put in front of a method name, it means that the method is going to be stored   
+inside of the constructor of the class. 
 ```js
 //assume that this is inside the code above
 static fromFahrenheit(value) {
     return new Temperature((value - 32) / 1.8);
 }
 ```
-note: (in this case) writing ***Temperature.fromFahrenheit(100)*** will allow you to make a Temerature in degrees fahrenheit.
+note: (in this case) writing ***Temperature.fromFahrenheit(100)*** will allow you to make a Temerature   
+in degrees fahrenheit.
 
 - ## Inheritance
-d: in JS, prototypes are already kind of like inheritance for objects. however, when wanting to build a class based on a different class an approach that implements parent and child functions is using ***extends***.   
+d: in JS, prototypes are already kind of like inheritance for objects. however, when wanting to build a class   
+based on a different class an approach that implements parent and child functions is using ***extends***.   
 
-***extends***: indicates that a class should be based on a class other than the default Object prototype. the class it will be based on (in this case Matrix) will be refered to as the *superclass* and this class will be refered to as the *subclass*.
+***extends***: indicates that a class should be based on a class other than the default Object prototype.   
+the class it will be based on (in this case Matrix) will be refered to as the *superclass* and this class   
+will be refered to as the *subclass*.
 ```js
 class SymmetricMatrix extends Matrix {
   constructor(size, element = (x, y) => undefined) {
-    //super keyword is calling the superclass's constructor to act as the constructor for the subclass SymmetricMatrix
+    /*
+    //super keyword is calling the superclass's constructor to act as the constructor   
+    //for the subclass SymmetricMatrix
+    */
     super(size, size, (x, y) => {
       //this is adding new features in the constructor which is totally acceptable
       if (x < y) return element(y, x);
@@ -691,7 +736,10 @@ class SymmetricMatrix extends Matrix {
   }
 
   set(x, y, value) {
-    //super keyword in this case is refering to the set method from the superclass Matrix. we want to redefine set for the subclass but also want to use the original behavior.
+    /*
+    super keyword in this case is refering to the set method from the superclass Matrix. 
+    we want to redefine set for the subclass but also want to use the original behavior.
+    */
     super.set(x, y, value);
     if (x != y) {
       super.set(y, x, value);
@@ -762,7 +810,10 @@ console.log(new Vec(3, 4).length());
 ```js
 class Group {
   constructor(groupMembers) {
-    //its okay to set this group to size 0 since we will push members in later, increasing the size by 1 to fit them in
+    /*
+    its okay to set this group to size 0 since we will push members in later, increasing the size 
+    by 1 to fit them in
+    */
     this.groupMembers = [];
   }
   
@@ -791,7 +842,10 @@ class Group {
   
   static from(arg) {
     let isIterable = false;
-    //checking if our arg is null or undefined, then checks if the type of the Symbol.iterator of arg is equal to a function since the value is a zero-argument FUNCTION that will return an object
+    /*
+    checking if our arg is null or undefined, then checks if the type of the Symbol.iterator of arg 
+    is equal to a function since the value is a zero-argument FUNCTION that will return an object
+    */
     if (arg == null) {
       isIterable = false;
     } else if (typeof arg[Symbol.iterator] === 'function') {
@@ -850,7 +904,10 @@ class Group {
   }
   
   static from(arg) {   
-    //no need to call Symbol.iterator() as it doesnt iterate through for us, all its doing is making it readable for later use such as here where we are using a for/of loop
+    /*
+    no need to call Symbol.iterator() as it doesnt iterate through for us, all its doing is making it
+    readable for later use such as here where we are using a for/of loop
+    */
     let newGroup = new Group();
       for (let element of arg) {
 		newGroup.add(element);
@@ -863,8 +920,10 @@ class Group {
     return new groupIterator(this);
   }
 }
-
-//all this class is doing is making data passed into group readable for a for/of loop, not actually iterating through an object and doing x,y,z with it
+/*
+all this class is doing is making data passed into group readable for a for/of loop, not actually iterating 
+through an object and doing x,y,z with it
+*/
 class groupIterator {
   constructor(group) {
     //x is a property that tracks position
@@ -898,16 +957,22 @@ for (let value of Group.from(["a", "b", "c"])) {
 # Chapter 10: *Modules*
 
 - ## Modules
-d: a piece of programming that specifies the other pieces its relying on and what the functionality it provides to the other pieces is. these are just like object interfaces from ***ch 6***. their main purpose is to break down bigger programs into pieces with clear interfaces (part of modules visable from other modules) and dependencies (the other modules that are used) to create better structure.r
+d: a piece of programming that specifies the other pieces its relying on and what the functionality it provides   
+to the other pieces is. these are just like object interfaces from ***ch 6***. their main purpose is   
+to break down bigger programs into pieces with clear interfaces (part of modules visable from other modules)   
+and dependencies (the other modules that are used) to create better structure.r
 
 - ## CommonJS
 d: the most widely used system for JS modules, node.js and most packages from NPM uses it.
 
-note: a main concept in CommonJS is the ***require*** function. this is the way to make the module load and return the interface for the given module when called.
+note: a main concept in CommonJS is the ***require*** function. this is the way to make the module   
+load and return the interface for the given module when called.
 
 ```js
 /*
-this is an example module where the date is formated in a certain way. there are two packages from NPM (ordinal and date-names) that converts numbers into strings like "1st" and "2nd" and provides the english names for days and months.
+this is an example module where the date is formated in a certain way. there are two packages from NPM 
+(ordinal and date-names) that converts numbers into strings like "1st" and "2nd" and provides the 
+english names for days and months.
 */
 const ordinal = require("ordinal");
 const {days, months} = require("date-names");
@@ -928,7 +993,8 @@ exports.formatDate = function(date, format) {
 
 ```js
 /*
-after creating formatDate as a module (that can be packaged), we can later use it like such to format a given date.
+after creating formatDate as a module (that can be packaged), we can later use it like such 
+to format a given date.
 */
 const {formatDate} = require("./format-date");
 
@@ -937,4 +1003,6 @@ console.log(formatDate(new Date(2017, 9, 13),
 // → Friday the 13th
 ```
 
-note: the ***./*** in front of the "format-date" is the directory file to the package. it is generally relative to the where the current module's filename. more detail about NPM packages and how to use them in ***ch 20***.
+note: the ***./*** in front of the "format-date" is the directory file to the package. it is generally   
+relative to the where the current module's filename. more detail about NPM packages and how to   
+use them in ***ch 20***.
