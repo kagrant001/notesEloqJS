@@ -158,11 +158,7 @@ function doSomething(event) {
 ```
 note: first code box is a classic way of iterating over each element in a for loop, second code box is a JavaScript specific simplier way to write this type of for loop     
  
-<<<<<<< HEAD
 ***of***: in a loop, it will loop over all elements in the value given after. works in arrays, strings, and some other data structures, resumed in ***ch 6***. ex.
-=======
-***of***: in a loop, it will loop over all elements in the value given after. works in arrays, strings, and some other data structures, resumed in chapter 6. ex.
->>>>>>> 6ea65872109ef1f90d96de3c8069a0a7df8815d5
 ```js
 //1 code box
 for (let i = 0; i < JOURNAL.length; i++) {
@@ -347,11 +343,6 @@ function prepend(element, list) {
 function nth(list, number) {
   let counter = 0;
   //every iteration, node points to current list properties. then at the end of iteration, node moves on to the next set of list properties. when node is null, there are no values to access so the loop is done.
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> 6ea65872109ef1f90d96de3c8069a0a7df8815d5
   for (let node = list; node; node = node.rest) {
     if (counter == number) {
 	  return node.value;
@@ -404,11 +395,7 @@ repeat(3, n => {
 // → 2 is even
 ```
 
-<<<<<<< HEAD
 note: the array method forEach from ***ch 4***, works as a higher order function
-=======
-note: the array method forEach from chapter 4, works as a higher order function
->>>>>>> 6ea65872109ef1f90d96de3c8069a0a7df8815d5
 
 example 3ish: when later calling the function ***filter***, for this case, the test parameter will need to be a function (which is possible in JS). This adds reusablilty by allowing other calls use their own test function → abstraction ;)
 ```js
@@ -558,7 +545,6 @@ note: currently, class declarations only allow methods (properties that hold fun
 
 - ## Maps
 d: (Exclaimer) this is not the same this as array.map(). this is a programming construct. a map is a data structure that associates its values (keys) with other values.
-<<<<<<< HEAD
 
 ```js
 //an example of a simple map in an object
@@ -634,83 +620,6 @@ class MatrixIterator {
     //this will run if the martix has iterated completely
     if (this.y == this.matrix.height) return {done: true};
 
-=======
-
-```js
-//an example of a simple map in an object
-let ages = {
-  Boris: 39,
-  Liang: 22,
-  Julia: 62
-};
-```
-note: objects are not the best place to use maps since objects are derived from Object.prototype meaning properties like toString are always present in the map ex.
-```js
-//continued from code above
-console.log("Is toString's age known?", "toString" in ages);
-// → Is toString's age known? true
-```
-note: Object property names need to be String and when you cannot convert keys to type to String (aka objects), you cannot use objects as maps. so JS made a class for maps called Map(); which allows any type as keys ex.
-```js 
-let ages = new Map();
-ages.set("Boris", 39);
-ages.set("Liang", 22);
-ages.set("Júlia", 62);
-```
-note: the methods ***set***, ***get***, and ***has*** are all apart of the Map class and work as a setter, getter, and contains function.
-
-- ## The Iterator Interface
-d: iterators just iterate a given thing. in JS its most common to iterate arrays but you can also iterate objects. in order to iterate objects, it must have a property with a ***Symbol.iterator*** key.
-```js
-//example of simple iterator
-let okIterator = "OK"[Symbol.iterator]();
-console.log(okIterator.next());
-// → {value: "O", done: false}
-console.log(okIterator.next());
-// → {value: "K", done: false}
-console.log(okIterator.next());
-// → {value: undefined, done: true}
-```
-note: iterators have two properties, ***value*** and ***done***. ***value*** is what is being iterated through and the value that is supposed to be returned. ***done*** is a boolean representing if we have iterated through whatever we are iterating through completely or not.
-```js
-//full example of an iterator
-
-//class Matrix is built to represent a 2D array
-class Matrix {
-  constructor(width, height, element = (x, y) => undefined) {
-    this.width = width;
-    this.height = height;
-    this.content = [];
-
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        this.content[y * width + x] = element(x, y);
-      }
-    }
-  }
-
-  get(x, y) {
-    return this.content[y * this.width + x];
-  }
-  set(x, y, value) {
-    this.content[y * this.width + x] = value;
-  }
-}
-
-//MatrixIterator will produce objects with the x, y, and value properties of Matrix
-class MatrixIterator {
-  constructor(matrix) {
-    this.x = 0;
-    this.y = 0;
-    this.matrix = matrix;
-  }
-
-  //next() is what will be called to iterate to the next element; this is what makes an Iterator an Iterator
-  next() {
-    //this will run if the martix has iterated completely
-    if (this.y == this.matrix.height) return {done: true};
-
->>>>>>> 6ea65872109ef1f90d96de3c8069a0a7df8815d5
     let value = {x: this.x,
                  y: this.y,
                  //using getter from matrix class
@@ -725,7 +634,6 @@ class MatrixIterator {
     return {value, done: false};
   }
 }
-<<<<<<< HEAD
 
 //because we are adding Symbol.iterator to the Matrix prototype, we can now loop over the Matrix class with for/of
 Matrix.prototype[Symbol.iterator] = function() {
@@ -1030,266 +938,3 @@ console.log(formatDate(new Date(2017, 9, 13),
 ```
 
 note: the ***./*** in front of the "format-date" is the directory file to the package. it is generally relative to the where the current module's filename. more detail about NPM packages and how to use them in ***ch 20***.
-=======
-
-//because we are adding Symbol.iterator to the Matrix prototype, we can now loop over the Matrix class with for/of
-Matrix.prototype[Symbol.iterator] = function() {
-  return new MatrixIterator(this);
-};
-
-//example of iterating a Matrix with for/of
-let matrix = new Matrix(2, 2, (x, y) => `value ${x},${y}`);
-for (let {x, y, value} of matrix) {
-  console.log(x, y, value);
-}
-// → 0 0 value 0,0
-// → 1 0 value 1,0
-// → 0 1 value 0,1
-// → 1 1 value 1,1
-```
-
-- ## Getters, Setters, and Statics
-note: getters and setters have actual syntax in JS similar to how constructor does too. (they still work the same as normal getters and setters though so dont worry).
-```js
-class Temperature {
-  constructor(celsius) {
-    this.celsius = celsius;
-  }
-  get fahrenheit() {
-    return this.celsius * 1.8 + 32;
-  }
-  set fahrenheit(value) {
-    this.celsius = (value - 32) / 1.8;
-  }
-}
-```
-note: when ***static*** is put in front of a method name, it means that the method is going to be stored inside of the constructor of the class. 
-```js
-//assume that this is inside the code above
-static fromFahrenheit(value) {
-    return new Temperature((value - 32) / 1.8);
-}
-```
-note: (in this case) writing ***Temperature.fromFahrenheit(100)*** will allow you to make a Temerature in degrees fahrenheit.
-
-- ## Inheritance
-d: in JS, prototypes are already kind of like inheritance for objects. however, when wanting to build a class based on a different class an approach that implements parent and child functions is using ***extends***.   
-
-***extends***: indicates that a class should be based on a class other than the default Object prototype. the class it will be based on (in this case Matrix) will be refered to as the *superclass* and this class will be refered to as the *subclass*.
-```js
-class SymmetricMatrix extends Matrix {
-  constructor(size, element = (x, y) => undefined) {
-    //super keyword is calling the superclass's constructor to act as the constructor for the subclass SymmetricMatrix
-    super(size, size, (x, y) => {
-      //this is adding new features in the constructor which is totally acceptable
-      if (x < y) return element(y, x);
-      else return element(x, y);
-    });
-  }
-
-  set(x, y, value) {
-    //super keyword in this case is refering to the set method from the superclass Matrix. we want to redefine set for the subclass but also want to use the original behavior.
-    super.set(x, y, value);
-    if (x != y) {
-      super.set(y, x, value);
-    }
-  }
-}
-```
-
-- # The Instanceof Operator
-d: this is used to know whether an object was derived from a specific class
-```js
-console.log(
-  new SymmetricMatrix(2) instanceof SymmetricMatrix);
-// → true
-console.log(new SymmetricMatrix(2) instanceof Matrix);
-// → true
-console.log(new Matrix(2, 2) instanceof SymmetricMatrix);
-// → false
-console.log([1] instanceof Array);
-// → true
-```
-note: can be applied to stardard objects like arrays as example 4
-
-# Chapter 6 Exercises: 
-- ## A Vector Type
-```js
-class Vec {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-  
-  plus(vec2) {
-    let plusX = this.x + vec2.getX();
-    let plusY = this.y + vec2.getY();
-    return new Vec(plusX, plusY);
-  }
-  
-  minus(vec2) {
-    let minusX = this.x - vec2.getX();
-    let minusY = this.y - vec2.getY();
-    return new Vec(minusX, minusY);
-  }
-  
-  length() {
-    let distance = Math.sqrt(((this.x * this.x) + (this.y * this.y)));
-    return distance;
-  }
-  
-  getX() {
-    return this.x;
-  }
-  
-  getY() {
-    return this.y;
-  }
-}
-
-console.log(new Vec(1, 2).plus(new Vec(2, 3)));
-// → Vec{x: 3, y: 5}
-console.log(new Vec(1, 2).minus(new Vec(2, 3)));
-// → Vec{x: -1, y: -1}
-console.log(new Vec(3, 4).length());
-// → 5
-```
-
-- ## Groups
-```js
-class Group {
-  constructor(groupMembers) {
-    //its okay to set this group to size 0 since we will push members in later, increasing the size by 1 to fit them in
-    this.groupMembers = [];
-  }
-  
-  add(newMember) {
-    //conditon is that a certain member can only be in the group once
-    if (!(this.has(newMember))) {
-      this.groupMembers.push(newMember);
-    } else {
-      console.log("this member is already in the group");
-    }
-  }
-  
-  delete(member) {
-    //condition is that the member must be in the group before being deleted
-    if (this.has(member)) {
-      let index = this.groupMembers.indexOf(member);
-      this.groupMembers.splice(index, 1);
-    } else {
-      console.log("this member was previously not in this group");
-    }
-  }
-  
-  has(member) {
-    return this.groupMembers.includes(member);      
-  }
-  
-  static from(arg) {
-    let isIterable = false;
-    //checking if our arg is null or undefined, then checks if the type of the Symbol.iterator of arg is equal to a function since the value is a zero-argument FUNCTION that will return an object
-    if (arg == null) {
-      isIterable = false;
-    } else if (typeof arg[Symbol.iterator] === 'function') {
-      isIterable = true;
-    }
-    
-    if (isIterable) {
-      let newGroup = new Group();
-      for (let element of arg) {
-		newGroup.add(element);
-      }
-      return newGroup;
-    }
-  }
-}
-
-let group = Group.from([10, 20]);
-console.log(group);
-console.log(group.has(10));
-// → true
-console.log(group.has(30));
-// → false
-group.add(10);
-// → "this member is already in the group"
-group.delete(10);
-console.log(group.has(10));
-// → false
-```
-
-- ## Iterable Groups
-```js
-class Group {
-  constructor(groupMembers) {
-    this.groupMembers = [];
-  }
-  
-  add(newMember) {
-    if (!(this.has(newMember))) {
-      this.groupMembers.push(newMember);
-    } else {
-      console.log("this member has already been added");
-    }
-  }
-  
-  delete(member) {
-    if (this.has(member)) {
-      let index = this.groupMembers.indexOf(member);
-      this.groupMembers.splice(index, 1);
-    } else {
-      console.log("this member was previously not in this group");
-    }
-  }
-  
-  has(member) {
-    return this.groupMembers.includes(member);      
-  }
-  
-  static from(arg) {   
-    //no need to call Symbol.iterator() as it doesnt iterate through for us, all its doing is making it readable for later use such as here where we are using a for/of loop
-    let newGroup = new Group();
-      for (let element of arg) {
-		newGroup.add(element);
-      }
-    
-    return newGroup;    
-  }
-  
-  [Symbol.iterator]() {
-    return new groupIterator(this);
-  }
-}
-
-//all this class is doing is making data passed into group readable for a for/of loop, not actually iterating through an object and doing x,y,z with it
-class groupIterator {
-  constructor(group) {
-    //x is a property that tracks position
-    this.x = 0;
-    this.group = group;
-  }
-  
-  next() {
-    if (this.x == this.group.groupMembers.length) return {done: true};
-    
-    //dont do this because its creating a nested object:
-    //let value = {value: this.group.groupMembers[this.x]};
-    //this.x++;
-    //return {value, done: false};
-    
-    //instead do this
-    let value = {value: this.group.groupMembers[this.x], done:false};
-    this.x++;
-    
-    return value
-  }
-}
-
-for (let value of Group.from(["a", "b", "c"])) {
-  console.log(value);
-}
-// → a
-// → b
-// → c
-```
->>>>>>> 6ea65872109ef1f90d96de3c8069a0a7df8815d5
