@@ -1006,3 +1006,44 @@ console.log(formatDate(new Date(2017, 9, 13),
 note: the ***./*** in front of the "format-date" is the directory file to the package. it is generally   
 relative to the where the current module's filename. more detail about NPM packages and how to   
 use them in ***ch 20***.
+
+# Chapter 11: *Asynchronous Programming*
+
+- ## Promises
+d: the promise class is an asynchronus action that will complete at some time returning a value when done.   
+ex. this is good for when you are downloading an image from a server and you once its finished then do ...   
+but you dont want to hold up the code just so that the image can download (asynchronus action).  
+quick note: promises are literally just better callback functions.
+
+***resolve()***: if this is the promise that was expected, then return successful.   
+***reject()***: if this is not the promise that was expected, then return not successful.
+
+***(promise).then()***: if the result is resolved (successful) *then* do ...   
+***(promise).catch()***: if the result is rejected (unsuccessful) then *catch* this error and do ...
+```js
+let p = new Promise((resolve, reject) => {
+  let a = 1 + 1;
+  if (a == 2) {
+    resolve("successful");
+  } else {
+    reject("failure");
+  }
+});
+
+p.then((message) => {
+  console.log("then " + message);
+}).catch((message) => {
+  console.log("catched " + message);
+});
+// → then successful
+```
+
+note: promises should be thought of as values that *could* already be there or values that *could* show   
+show up in the future.
+
+- ## Network Flooding
+d: simply passing a message amongst all nodes until every node has the message (or piece of data).
+
+- ## Message Routing
+d: when one node specifically wants to send a message to a different individual node. however, since nodes only   
+know their two adjecent neighbors, you will need to pass the message on until you find the specific node
