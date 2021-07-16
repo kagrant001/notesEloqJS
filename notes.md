@@ -1047,3 +1047,100 @@ d: simply passing a message amongst all nodes until every node has the message (
 - ## Message Routing
 d: when one node specifically wants to send a message to a different individual node. however, since nodes only   
 know their two adjecent neighbors, you will need to pass the message on until you find the specific node
+
+# Chapter 15: Handling Events
+
+- ## Event Handlers
+d: when a user is interacting with the program it is an event. event handlers are functions that check to   
+see if the user is interacting with it.
+
+```html
+<!-- even though I dont know html, we are tracking if 
+there is a get button down and then adding it as an    
+event. then checking which button was clicked by using specific names for the buttons -->
+<button>Click me any way you want</button>
+<script>
+  let button = document.querySelector("button");
+  button.addEventListener("mousedown", event => {
+    if (event.button == 0) {
+      console.log("Left button");
+    } else if (event.button == 1) {
+      console.log("Middle button");
+    } else if (event.button == 2) {
+      console.log("Right button");
+    }
+  });
+</script>
+```
+
+- ## Propagation
+d: events can be nested and in this case the most-nested event will be treated with priority. once the event    
+handler with the most priority runs, then the next in line event handler will run which is called propagation
+
+***stopPropagation()***: this method stops propagation which is usually used after the event handler with the   
+most priority runs and you dont want the rest to run.
+
+***preventDefault()***: this method stops the default case of happening.
+
+***target***: this is a property of an event that refers to the specific node where it originated from.
+```html
+<!--quick script for target -->
+<button>A</button>
+<button>B</button>
+<button>C</button>
+<script>
+  document.body.addEventListener("click", event => {
+    if (event.target.nodeName == "BUTTON") {
+      console.log("Clicked", event.target.textContent);
+    }
+  });
+</script>
+```
+
+- ## Key Events
+d: simply when keys on the keyboard are pushed down or let go. careful for checking on keydown because when    
+people hold down the button that is still a keydown meaning if you were to create one toy soldier on   
+keydown,  you could end up creating hundreds from holding it down for a little bit.
+
+```html
+<!--quick example of checking for a combined keydown event -->
+<p>Press Control-Space to continue.</p>
+<script>
+  window.addEventListener("keydown", event => {
+    if (event.key == " " && event.ctrlKey) {
+      console.log("Continuing!");
+    }
+  });
+</script>
+```
+
+note: there are many types of events that work very similarly to key events, such as pointer (mouse),   
+touch, scrolling. no notes will be on the specific calls to all of them so just look them up when it comes time.
+
+- ## Load Event
+d: when a page finishing loading and you are put on the page, a "load" event runs all of the script tags   
+to create the initialization of the page. similarly, when you leave the page or click off, the "beforeunload"    
+event runs and typically stops the user from losing all of their work/progress.
+
+- ## Events And The Event Loop
+note: events can only run when nothing else runs meaning if there are asynchronus things running, they will    
+be paused when the event is running. if the event say does a large computation that may take a lot of time   
+there is a thing called a ***web worker*** that is kind of like the most asynchronus approach to save time
+
+note: web workers are new programs that only do the set of computations or whatever may take a while. they   
+pass messages to and from the event so that there are no problems about working with the same data across   
+multiple different places.
+
+```js
+/* this code spawns a "squareWorker" from the Worker object and all it does is log the message passed     
+through   
+
+the post message sends a message to the worker which makes the event start */
+let squareWorker = new Worker("code/squareworker.js");
+squareWorker.addEventListener("message", event => {
+  console.log("The worker responded:", event.data);
+});
+squareWorker.postMessage(10);
+squareWorker.postMessage(24);
+```
+
