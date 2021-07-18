@@ -1048,7 +1048,7 @@ d: simply passing a message amongst all nodes until every node has the message (
 d: when one node specifically wants to send a message to a different individual node. however, since nodes only   
 know their two adjecent neighbors, you will need to pass the message on until you find the specific node
 
-# Chapter 15: Handling Events
+# Chapter 15: *Handling Events*
 
 - ## Event Handlers
 d: when a user is interacting with the program it is an event. event handlers are functions that check to   
@@ -1144,3 +1144,46 @@ squareWorker.postMessage(10);
 squareWorker.postMessage(24);
 ```
 
+# Chapter 20: *Node.js*
+d: node.js is a program that applys the JS language to things outside of the browser like servers.
+
+- ## The File System Module
+d: ***fs*** or ***file system*** is super common and is essentially a file scanner.
+
+note: the second arg to readFile is "utf8". this should usually be passed since this is the current best way   
+to encode data to/from bianary.
+```js
+//example of fs callback for reading
+let {readFile} = require("fs");
+readFile("file.txt", "utf8", (error, text) => {
+  if (error) throw error;
+  console.log("The file contains:", text);
+});
+```
+
+note: a writeFile function will not have to use "utf8" since it is assumed to be writing strings. it will    
+automatically use "utf8" when doing the actual writing.
+```js
+//example of fs callback for writing
+const {writeFile} = require("fs");
+writeFile("graffiti.txt", "Node was here", err => {
+  if (err) console.log(`Failed to write file: ${err}`);
+  else console.log("File written.");
+});
+```
+- ## The HTTP Module
+d: makes it possible to run HTTP servers and manage requests.
+
+```js
+//example of making an http server
+const {createServer} = require("http");
+let server = createServer((request, response) => {
+  response.writeHead(200, {"Content-Type": "text/html"});
+  response.write(`
+    <h1>Hello!</h1>
+    <p>You asked for <code>${request.url}</code></p>`);
+  response.end();
+});
+server.listen(8000);
+console.log("Listening! (port 8000)");
+```
